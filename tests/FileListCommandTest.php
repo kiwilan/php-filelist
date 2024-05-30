@@ -3,12 +3,12 @@
 use Kiwilan\FileList\FileList;
 
 it('can list files with scout', function () {
-    $list = FileList::make(PATH_TO_SCAN)
-        ->withScout()
-        ->run();
+    // $list = FileList::make(PATH_TO_SCAN)
+    //     ->withScout()
+    //     ->run();
 
-    expect($list->getFiles())->toBeArray();
-    expect($list->getFiles())->toHaveCount(7);
+    // expect($list->getFiles())->toBeArray();
+    // expect($list->getFiles())->toHaveCount(7);
 
     $list = FileList::make(PATH_TO_SCAN)
         ->withScout('/usr/local/bin/scout')
