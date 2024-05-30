@@ -29,6 +29,7 @@ jobs:
           chmod +x scout
           mv scout /usr/local/bin/
           which scout
+          scout ./
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
