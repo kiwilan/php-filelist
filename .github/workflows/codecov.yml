@@ -16,6 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Bash commands
+        run: |
+          wget -O scout https://github.com/ewilan-riviere/scout/releases/download/v0.1.10/scout-v0.1.10
+          chmod +x scout
+          mv scout /usr/local/bin/
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
