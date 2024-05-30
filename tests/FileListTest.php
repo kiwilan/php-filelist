@@ -86,3 +86,10 @@ it('can disable max execution time', function () {
 
     expect($list->getFiles())->toHaveCount(7);
 });
+
+it('can list as SplFileInfo', function () {
+    $list = FileList::make(PATH_TO_SCAN)->run();
+
+    expect($list->getSplFiles())->toHaveCount(7);
+    expect($list->getSplFiles()[0])->toBeInstanceOf(\SplFileInfo::class);
+});

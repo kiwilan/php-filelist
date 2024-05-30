@@ -221,6 +221,21 @@ class FileList
     }
 
     /**
+     * Get the files as `SplFileInfo` array.
+     *
+     * @return \SplFileInfo[]
+     */
+    public function getSplFiles(): array
+    {
+        $files = [];
+        foreach ($this->files as $file) {
+            $files[] = new \SplFileInfo($file);
+        }
+
+        return $files;
+    }
+
+    /**
      * Get the total number of files.
      */
     public function getTotal(): int
