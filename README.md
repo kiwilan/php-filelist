@@ -1,41 +1,103 @@
-# :package_description
+# PHP FileList
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![Tests](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions/workflows/run-tests.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This package can be used as to scaffold a framework agnostic package. Follow these steps to get started:
+![Banner with eReader picture in background and PHP eBook title](https://raw.githubusercontent.com/kiwilan/php-ebook/main/docs/banner.jpg)
 
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this skeleton
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
+[![php][php-version-src]][php-version-href]
+[![version][version-src]][version-href]
+[![downloads][downloads-src]][downloads-href]
+[![license][license-src]][license-href]
+[![tests][tests-src]][tests-href]
+[![codecov][codecov-src]][codecov-href]
 
-## Support us
+PHP package for recursive file listing, exportable in JSON format.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+> [!NOTE]
+> The aim of this package is to provide a simple way to list files in a directory, with options to customize the scan. But the real feature is usage of custom binaries, if you want to add an interesting binary, you can open an issue or a pull request.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require kiwilan/php-filelist
 ```
 
 ## Usage
 
 ```php
-$skeleton = new VendorName\Skeleton();
-echo $skeleton->echoPhrase('Hello, VendorName!');
+$list = FileList::make('/path/to/scan')->run();
+
+$list->getFiles(); // List of files as `string[]`
+$list->getErrors(); // List of errors as `string[]|null`
+$list->getTimeElapsed(); // Time elapsed in seconds as `float`
+$list->getTotal(); // Total files as `int`
+$list->isSuccess(); // Success status as `bool`
+```
+
+### Options
+
+Show hidden files, default is `false`.
+
+```php
+$list = FileList::make('/path/to/scan')->run();
+```
+
+Save as JSON.
+
+```php
+$list = FileList::make('/path/to/scan')->saveAsJson('/path/to/json')->run();
+```
+
+Throw exception on error, otherwise errors are stored in the list.
+
+```php
+$list = FileList::make('/path/to/scan')->throwOnError()->run();
+```
+
+Limit the number of files to scan.
+
+```php
+$list = FileList::make('/path/to/scan')->limit(100)->run();
+```
+
+Skip extensions, case insensitive.
+
+```php
+$list = FileList::make('/path/to/scan')->skipExtensions(['txt', 'md'])->run();
+```
+
+Disable recursive scan.
+
+```php
+$list = FileList::make('/path/to/scan')->notRecursive()->run();
+```
+
+Disable PHP memory limit.
+
+```php
+$list = FileList::make('/path/to/scan')->noMemoryLimit()->run();
+```
+
+### Use custom binaries
+
+If you want to add a new binary, you can open an issue or a pull request.
+
+#### `find`
+
+The `find` binary is used to list files in a directory, you can add path of binary as parameter of `withFind()` method if it's not in your PATH.
+
+```php
+$list = FileList::make('/path/to/scan')->withFind()->run();
+```
+
+### `scout`
+
+The `scout` binary is used to list files in a directory, you can add path of binary as parameter of `withScout()` method if it's not in your PATH.
+
+> [!NOTE] > `scout` is a Rust CLI tool built to list files, you can find the source code [here](https://github.com/ewilan-riviere/scout).
+
+```php
+$list = FileList::make('/path/to/scan')->withScout()->run();
 ```
 
 ## Testing
@@ -48,18 +110,10 @@ composer test
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Contributing
-
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
-- [All Contributors](../../contributors)
+-   [Ewilan Rivière](https://github.com/kiwilan)
+-   [All Contributors](../../contributors)
 
 ## License
 
