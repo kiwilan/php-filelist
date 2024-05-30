@@ -21,6 +21,8 @@ abstract class FileListCommand
 
     protected bool $throwOnError = false;
 
+    protected bool $available = true;
+
     /**
      * @var string[]|null The errors that occurred.
      */
@@ -84,6 +86,8 @@ abstract class FileListCommand
             if ($this->throwOnError) {
                 throw new \Exception("FileList: {$error}");
             }
+
+            $this->available = false;
 
             return $this;
         }

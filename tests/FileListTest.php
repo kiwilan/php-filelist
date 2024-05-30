@@ -23,6 +23,7 @@ it('can list files', function () {
 it('can show hidden files', function () {
     $list = FileList::make(PATH_TO_SCAN)
         ->showHidden()
+        ->skipExtensions(['.DS_Store'])
         ->run();
 
     expect($list->getFiles())->toHaveCount(9);

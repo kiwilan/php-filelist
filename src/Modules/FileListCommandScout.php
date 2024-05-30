@@ -17,6 +17,9 @@ class FileListCommandScout extends FileListCommand
     public function getFiles(): array
     {
         $files = [];
+        if (! $this->available) {
+            return $files;
+        }
 
         $lastLine = end($this->outputArray);
         $path = explode(':', $lastLine)[1];
