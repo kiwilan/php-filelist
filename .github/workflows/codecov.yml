@@ -29,7 +29,6 @@ jobs:
           cd scout
           cargo build --release
           cp target/release/scout /usr/local/bin
-          scout ./
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
