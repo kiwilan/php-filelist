@@ -8,7 +8,7 @@ class FileListCommandScout extends FileListCommand
 {
     public static function create(array $arguments, ?string $binaryPath = null): self
     {
-        $self = new self($binaryPath ? 'scout' : $binaryPath);
+        $self = new self($binaryPath ?: 'scout');
         $self->arguments = $arguments;
 
         return $self;

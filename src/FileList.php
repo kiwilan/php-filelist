@@ -144,7 +144,7 @@ class FileList
     public function withScout(?string $binaryPath = null): self
     {
         $this->useNative = false;
-        $this->command = FileListCommandScout::create([$this->pathToScan]);
+        $this->command = FileListCommandScout::create([$this->pathToScan], $binaryPath);
 
         return $this;
     }
@@ -157,7 +157,7 @@ class FileList
     public function withFind(?string $binaryPath = null): self
     {
         $this->useNative = false;
-        $this->command = FileListCommandFind::create([$this->pathToScan, '-type', 'f']);
+        $this->command = FileListCommandFind::create([$this->pathToScan, '-type', 'f'], $binaryPath);
 
         return $this;
     }
