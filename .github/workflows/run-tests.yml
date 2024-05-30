@@ -47,6 +47,7 @@ jobs:
           cd scout
           cargo build --release
           $env:PATH += ";C:\scout\target\release"
+          scout ./
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
