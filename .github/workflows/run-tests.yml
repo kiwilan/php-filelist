@@ -46,7 +46,7 @@ jobs:
           git clone https://github.com/ewilan-riviere/scout.git
           cd scout
           cargo build --release
-          set PATH=%PATH%;C:\scout\target\release
+          $env:PATH += ";C:\scout\target\release"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
