@@ -90,7 +90,7 @@ The `find` binary is used to list files in a directory, you can add path of bina
 $list = FileList::make('/path/to/scan')->withFind()->run();
 ```
 
-### `scout`
+#### `scout`
 
 The `scout` binary is used to list files in a directory, you can add path of binary as parameter of `withScout()` method if it's not in your PATH.
 
