@@ -16,6 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
       - name: Bash commands
         if: runner.os == 'Linux'
         run: |
@@ -23,7 +29,6 @@ jobs:
           chmod +x scout
           mv scout /usr/local/bin/
           which scout
-          scout ./
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
