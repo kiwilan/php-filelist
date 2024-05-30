@@ -40,7 +40,7 @@ $list->isSuccess(); // Success status as `bool`
 Show hidden files, default is `false`.
 
 ```php
-$list = FileList::make('/path/to/scan')->run();
+$list = FileList::make('/path/to/scan')->showHidden()->run();
 ```
 
 Save as JSON.
@@ -65,6 +65,12 @@ Skip extensions, case insensitive.
 
 ```php
 $list = FileList::make('/path/to/scan')->skipExtensions(['txt', 'md'])->run();
+```
+
+Skip filenames.
+
+```php
+$list = FileList::make('/path/to/scan')->skipFilenames(['file.txt', 'README.md'])->run();
 ```
 
 Disable recursive scan.
