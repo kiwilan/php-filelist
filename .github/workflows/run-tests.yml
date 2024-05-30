@@ -40,15 +40,6 @@ jobs:
           cargo build --release
           cp target/release/scout /usr/local/bin
 
-      - name: Powershell commands
-        if: runner.os == 'Windows'
-        run: |
-          git clone https://github.com/ewilan-riviere/scout.git
-          cd scout
-          cargo build --release
-          $env:PATH += ";C:\scout\target\release"
-          scout ./
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:

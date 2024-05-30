@@ -15,7 +15,7 @@ it('can list files with scout', function () {
         ->throwOnError()
         ->run()
     )->toThrow(Exception::class);
-});
+})->skip(PHP_OS_FAMILY === 'Windows');
 
 it('can list files with scout with path', function () {
     $list = FileList::make(PATH_TO_SCAN)
@@ -24,7 +24,7 @@ it('can list files with scout with path', function () {
 
     expect($list->getFiles())->toBeArray();
     expect($list->getFiles())->toHaveCount(7);
-})->skip(PHP_OS_FAMILY === 'Windows', 'Binary path is unix here');
+})->skip(PHP_OS_FAMILY === 'Windows');
 
 it('can list files with find', function () {
     $list = FileList::make(PATH_TO_SCAN)
@@ -34,4 +34,4 @@ it('can list files with find', function () {
 
     expect($list->getFiles())->toBeArray();
     expect($list->getFiles())->toHaveCount(7);
-});
+})->skip(PHP_OS_FAMILY === 'Windows');
