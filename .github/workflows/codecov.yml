@@ -17,10 +17,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Bash commands
+        if: runner.os == 'Linux'
         run: |
           wget -O scout https://github.com/ewilan-riviere/scout/releases/download/v0.1.10/scout-v0.1.10
           chmod +x scout
           mv scout /usr/local/bin/
+          which scout
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
