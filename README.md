@@ -28,6 +28,7 @@ composer require kiwilan/php-filelist
 $list = FileList::make('/path/to/scan')->run();
 
 $list->getFiles(); // List of files as `string[]`
+$list->getSplFiles(); // List of SplFileInfo as `SplFileInfo[]`
 $list->getErrors(); // List of errors as `string[]|null`
 $list->getTimeElapsed(); // Time elapsed in seconds as `float`
 $list->getTotal(); // Total files as `int`
