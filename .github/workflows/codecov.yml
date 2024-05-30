@@ -26,6 +26,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           git clone https://github.com/ewilan-riviere/scout.git
+          cd scout
           cargo build --release
           cp target/release/scout /usr/local/bin
           scout ./
