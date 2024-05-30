@@ -25,10 +25,9 @@ jobs:
       - name: Bash commands
         if: runner.os == 'Linux'
         run: |
-          wget -O scout https://github.com/ewilan-riviere/scout/releases/download/v0.1.10/scout-v0.1.10
-          chmod +x scout
-          mv scout /usr/local/bin/
-          which scout
+          git clone git clone https://github.com/ewilan-riviere/scout.git
+          cargo build --release
+          cp target/release/scout /usr/local/bin
           scout ./
 
       - name: Setup PHP
