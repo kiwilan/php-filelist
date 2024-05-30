@@ -21,6 +21,7 @@ class FileList
         protected bool $recursive = true,
         protected bool $skipHidden = true,
         protected array $skipExtensions = [],
+        protected array $skipFilenames = [],
         protected bool $noMemoryLimit = false,
         protected bool $useNative = true,
 
@@ -100,6 +101,18 @@ class FileList
         $skipExtensions = array_filter($skipExtensions);
 
         $this->skipExtensions = $skipExtensions;
+
+        return $this;
+    }
+
+    /**
+     * Skip files with these filenames.
+     *
+     * @param  string[]  $skipFilenames  The filenames to skip, like `['.DS_Store', 'Thumbs.db']`.
+     */
+    public function skipFilenames(array $skipFilenames): self
+    {
+        $this->skipFilenames = $skipFilenames;
 
         return $this;
     }
@@ -334,7 +347,7 @@ class FileList
      */
     private function cleaning(): void
     {
-        if (! $this->skipHidden && empty($this->skipExtensions)) {
+        if (! $this->skipHidden && empty($this->skipExtensions) && empty($this->skipFilenames)) {
             return;
         }
 
@@ -348,6 +361,10 @@ class FileList
 
             $extension = pathinfo($file, PATHINFO_EXTENSION);
             if (in_array($extension, $this->skipExtensions)) {
+                continue;
+            }
+
+            if (in_array($filename, $this->skipFilenames)) {
                 continue;
             }
 

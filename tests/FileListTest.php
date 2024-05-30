@@ -23,10 +23,10 @@ it('can list files', function () {
 it('can show hidden files', function () {
     $list = FileList::make(PATH_TO_SCAN)
         ->showHidden()
-        ->skipExtensions(['.DS_Store'])
+        ->skipFilenames(['.DS_Store'])
         ->run();
 
-    expect($list->getFiles())->toHaveCount(9);
+    expect($list->getFiles())->toHaveCount(8);
 });
 
 it('can save as json', function () {
@@ -59,7 +59,6 @@ it('can limit files', function () {
     $list = FileList::make(PATH_TO_SCAN)
         ->limit(3)
         ->run();
-    ray($list);
 
     expect($list->getFiles())->toHaveCount(3);
 });
