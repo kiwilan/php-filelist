@@ -132,5 +132,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [license-href]: https://github.com/kiwilan/php-filelist/blob/main/README.md
 [tests-src]: https://img.shields.io/github/actions/workflow/status/kiwilan/php-filelist/run-tests.yml?branch=main&label=tests&style=flat&colorA=18181B
 [tests-href]: https://packagist.org/packages/kiwilan/php-filelist
-[codecov-src]: https://img.shields.io/codecov/c/gh/kiwilan/php-filelist/main?style=flat&colorA=18181B&colorB=777BB4
+[codecov-src]: https://codecov.io/gh/kiwilan/php-filelist/graph/badge.svg?token=LhW38C1VKZ
 [codecov-href]: https://codecov.io/gh/kiwilan/php-filelist

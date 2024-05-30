@@ -33,7 +33,6 @@ jobs:
           override: true
 
       - name: Bash commands
-        if: runner.os == 'Linux'
         run: |
           git clone https://github.com/ewilan-riviere/scout.git
           cd scout
