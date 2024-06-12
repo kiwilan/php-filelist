@@ -104,6 +104,9 @@ The `scout` binary is used to list files in a directory, you can add path of bin
 > [!NOTE]
 > Binary `scout` is a Rust CLI tool built to list files, you can find the source code [here](https://github.com/ewilan-riviere/scout).
 
+> [!IMPORTANT]
+> Minimum `scout` version is `0.2.0`.
+
 ```php
 $list = FileList::make('/path/to/scan')->withScout()->run();
 ```

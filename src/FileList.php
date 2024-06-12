@@ -157,7 +157,7 @@ class FileList
     public function withScout(?string $binaryPath = null): self
     {
         $this->useNative = false;
-        $this->command = FileListCommandScout::create([$this->pathToScan], $binaryPath);
+        $this->command = FileListCommandScout::create([$this->pathToScan, '--print'], $binaryPath);
 
         return $this;
     }

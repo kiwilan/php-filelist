@@ -16,14 +16,40 @@ class FileListCommandScout extends FileListCommand
 
     public function getFiles(): array
     {
+        $files = $this->parseOutput();
+
+        return $files;
+    }
+
+    private function parseOutput(): array
+    {
+        $files = $this->outputArray;
+
+        return $files;
+    }
+
+    private function parseJsonOutput(): array
+    {
         $files = [];
         if (! $this->available) {
             return $files;
         }
 
-        $lastLine = end($this->outputArray);
-        $path = explode(':', $lastLine)[1];
-        $path = trim($path);
+        $path = null;
+        foreach ($this->outputArray as $line) {
+            if (str_contains($line, 'Output file:')) {
+                $path = explode(':', $line)[1];
+                $path = trim($path);
+                break;
+            }
+        }
+
+        if ($path === null) {
+            $this->errors[] = 'No output file found.';
+            $this->success = false;
+
+            return $files;
+        }
 
         if (! file_exists($path)) {
             return $files;
