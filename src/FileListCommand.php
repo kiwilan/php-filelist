@@ -93,6 +93,16 @@ abstract class FileListCommand
     }
 
     /**
+     * Get the arguments.
+     *
+     * @return string[]
+     */
+    public function getArguments(): array
+    {
+        return $this->arguments;
+    }
+
+    /**
      * Get the user that ran the command.
      */
     public function getUser(): ?string
@@ -185,6 +195,22 @@ abstract class FileListCommand
         $this->success = true;
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'command' => $this->command,
+            'user' => $this->user,
+            'output' => $this->output,
+            'outputArray' => $this->outputArray,
+            'success' => $this->success,
+            'noMemoryLimit' => $this->noMemoryLimit,
+            'throwOnError' => $this->throwOnError,
+            'available' => $this->available,
+            'errors' => $this->errors,
+        ];
     }
 
     private function commandExists(string $cmd): bool
