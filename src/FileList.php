@@ -264,6 +264,11 @@ class FileList
         return $this->timeElapsed;
     }
 
+    public function getCommand(): ?FileListCommand
+    {
+        return $this->command;
+    }
+
     /**
      * Get the errors.
      *

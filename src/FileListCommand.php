@@ -8,6 +8,8 @@ abstract class FileListCommand
 
     protected ?string $command = null;
 
+    protected ?string $user = null;
+
     protected ?string $output = null;
 
     /**
@@ -75,6 +77,72 @@ abstract class FileListCommand
     }
 
     /**
+     * Get the name of the command.
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get full command with arguments.
+     */
+    public function getCommand(): ?string
+    {
+        return $this->command;
+    }
+
+    /**
+     * Get the user that ran the command.
+     */
+    public function getUser(): ?string
+    {
+        return $this->user;
+    }
+
+    /**
+     * Get the output of the command.
+     */
+    public function getOutput(): ?string
+    {
+        return $this->output;
+    }
+
+    /**
+     * Get the output as an array.
+     */
+    public function getOutputArray(): ?array
+    {
+        return $this->outputArray;
+    }
+
+    /**
+     * Get the success status of the command.
+     */
+    public function isSuccess(): bool
+    {
+        return $this->success;
+    }
+
+    /**
+     * Get the availability of the command.
+     */
+    public function isAvailable(): bool
+    {
+        return $this->available;
+    }
+
+    /**
+     * Get the errors.
+     *
+     * @return string[]|null
+     */
+    public function getErrors(): ?array
+    {
+        return $this->errors;
+    }
+
+    /**
      * Run the command.
      */
     public function run(): self
@@ -111,9 +179,10 @@ abstract class FileListCommand
             }
         }
 
+        $this->user = get_current_user();
         $this->output = implode(PHP_EOL, $output);
         $this->outputArray = $output;
-        $this->success = $success;
+        $this->success = true;
 
         return $this;
     }

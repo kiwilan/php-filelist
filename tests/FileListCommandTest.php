@@ -17,6 +17,24 @@ it('can list files with scout', function () {
     )->toThrow(Exception::class);
 })->skip(PHP_OS_FAMILY === 'Windows');
 
+it('can list files with scout and print command', function () {
+    $list = FileList::make(PATH_TO_SCAN)
+        ->withScout()
+        ->run();
+
+    $currentUser = exec('whoami');
+    $command = $list->getCommand();
+    expect($command->getName())->toBe('scout');
+    expect($command->getCommand())->toBeString();
+    expect($command->getCommand())->toContain('scout');
+    expect($command->getErrors())->toBeNull();
+    expect($command->getFiles())->toBeArray();
+    expect($command->getOutput())->toBeString();
+    expect($command->getOutputArray())->toBeArray();
+    expect($command->getUser())->toBe($currentUser);
+    expect($command->isSuccess())->toBeTrue();
+})->skip(PHP_OS_FAMILY === 'Windows');
+
 it('can list files with scout with path', function () {
     $list = FileList::make(PATH_TO_SCAN)
         ->withScout('/usr/local/bin/scout')
