@@ -34,8 +34,7 @@ class FileList
 
         protected float $timeElapsed = 0,
         protected ?array $errors = null,
-    ) {
-    }
+    ) {}
 
     /**
      * Make a new instance of the class.
