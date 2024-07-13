@@ -32,8 +32,7 @@ abstract class FileListCommand
 
     protected function __construct(
         protected string $name,
-    ) {
-    }
+    ) {}
 
     /**
      * Make a new instance of the class.
