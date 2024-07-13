@@ -71,6 +71,14 @@ it('can skip extensions', function () {
     expect($list->getFiles())->toHaveCount(5);
 });
 
+it('can get only extensions', function () {
+    $list = FileList::make(PATH_TO_SCAN)
+        ->onlyExtensions(['mkv', 'jpg'])
+        ->run();
+
+    expect($list->getFiles())->toHaveCount(2);
+});
+
 it('can use not recursive scan', function () {
     $list = FileList::make(PATH_TO_SCAN)
         ->notRecursive()

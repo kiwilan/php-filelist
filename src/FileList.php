@@ -20,6 +20,7 @@ class FileList
         protected int|false $limit = false,
         protected bool $recursive = true,
         protected bool $skipHidden = true,
+        protected array $onlyExtensions = [],
         protected array $skipExtensions = [],
         protected array $skipFilenames = [],
         protected bool $noMemoryLimit = false,
@@ -85,24 +86,47 @@ class FileList
     }
 
     /**
+     * Get only files with these extensions.
+     *
+     * @param  string[]  $onlyExtensions  The extensions to get, like `['mkv', 'jpg']`.
+     */
+    public function onlyExtensions(array $onlyExtensions): self
+    {
+
+        $this->onlyExtensions = $this->parseExtensions($onlyExtensions);
+
+        return $this;
+    }
+
+    /**
      * Skip files with these extensions.
      *
      * @param  string[]  $skipExtensions  The extensions to skip, like `['mkv', 'jpg']`.
      */
     public function skipExtensions(array $skipExtensions): self
     {
-        // remove the dot from the extensions
-        $skipExtensions = array_map(fn ($ext) => str_replace('.', '', $ext), $skipExtensions);
-        // trim the extensions
-        $skipExtensions = array_map('trim', $skipExtensions);
-        // lowercase the extensions
-        $skipExtensions = array_map('strtolower', $skipExtensions);
-        // remove empty values
-        $skipExtensions = array_filter($skipExtensions);
-
-        $this->skipExtensions = $skipExtensions;
+        $this->skipExtensions = $this->parseExtensions($skipExtensions);
 
         return $this;
+    }
+
+    /**
+     * Skip files with these extensions.
+     *
+     * @param  string[]  $extensions  The extensions to skip, like `['mkv', 'jpg']`.
+     * @return string[]
+     */
+    private function parseExtensions(array $extensions): array
+    {
+        // remove the dot from the extensions
+        $extensions = array_map(fn ($ext) => str_replace('.', '', $ext), $extensions);
+        // trim the extensions
+        $extensions = array_map('trim', $extensions);
+        // lowercase the extensions
+        $extensions = array_map('strtolower', $extensions);
+
+        // remove empty values
+        return array_filter($extensions);
     }
 
     /**
@@ -352,7 +376,7 @@ class FileList
      */
     private function cleaning(): void
     {
-        if (! $this->skipHidden && empty($this->skipExtensions) && empty($this->skipFilenames)) {
+        if (! $this->skipHidden && empty($this->skipExtensions) && empty($this->skipFilenames) && empty($this->onlyExtensions)) {
             return;
         }
 
@@ -365,6 +389,11 @@ class FileList
             }
 
             $extension = pathinfo($file, PATHINFO_EXTENSION);
+
+            if (! empty($this->onlyExtensions) && ! in_array($extension, $this->onlyExtensions)) {
+                continue;
+            }
+
             if (in_array($extension, $this->skipExtensions)) {
                 continue;
             }
