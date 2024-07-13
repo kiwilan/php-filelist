@@ -61,6 +61,12 @@ Limit the number of files to scan.
 $list = FileList::make('/path/to/scan')->limit(100)->run();
 ```
 
+Get only files with specific extensions, case insensitive.
+
+```php
+$list = FileList::make('/path/to/scan')->onlyExtensions(['txt', 'md'])->run();
+```
+
 Skip extensions, case insensitive.
 
 ```php
