@@ -2,6 +2,10 @@
 
 All notable changes to `php-filelist` will be documented in this file.
 
+## v0.0.32 - 2024-07-13
+
+Add `onlyExtensions()` method to parse only files with specific extensions.
+
 ## v0.0.31 - 2024-06-12
 
 Upgrade `scout` binary to 0.2.0
