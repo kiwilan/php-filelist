@@ -21,7 +21,7 @@ abstract class FileListCommand
 
     protected bool $noMemoryLimit = false;
 
-    protected bool $throwOnError = false;
+    protected bool $safeOnError = false;
 
     protected bool $available = true;
 
@@ -68,9 +68,9 @@ abstract class FileListCommand
         return $this;
     }
 
-    public function throwOnError(): self
+    public function safeOnError(): self
     {
-        $this->throwOnError = true;
+        $this->safeOnError = true;
 
         return $this;
     }
@@ -160,7 +160,7 @@ abstract class FileListCommand
             $error = 'Command not found: '.$this->name;
             $this->errors[] = $error;
 
-            if ($this->throwOnError) {
+            if (! $this->safeOnError) {
                 throw new \Exception("FileList: {$error}");
             }
 
@@ -183,7 +183,7 @@ abstract class FileListCommand
         } catch (\Throwable $th) {
             $this->errors[] = $th->getMessage();
 
-            if ($this->throwOnError) {
+            if (! $this->safeOnError) {
                 throw new \Exception("FileList: {$th->getMessage()}");
             }
         }
@@ -206,7 +206,7 @@ abstract class FileListCommand
             'outputArray' => $this->outputArray,
             'success' => $this->success,
             'noMemoryLimit' => $this->noMemoryLimit,
-            'throwOnError' => $this->throwOnError,
+            'safeOnError' => $this->safeOnError,
             'available' => $this->available,
             'errors' => $this->errors,
         ];

@@ -103,18 +103,21 @@ The `find` binary is used to list files in a directory, you can add path of bina
 $list = FileList::make('/path/to/scan')->withFind()->run();
 ```
 
-#### `scout`
+#### `scout-seeker`
 
-The `scout` binary is used to list files in a directory, you can add path of binary as parameter of `withScout()` method if it's not in your PATH.
-
-> [!NOTE]
-> Binary `scout` is a Rust CLI tool built to list files, you can find the source code [here](https://github.com/ewilan-riviere/scout).
+The `scout-seeker` binary is used to list files in a directory, you can add path of binary as parameter of `withScoutSeeker()` method if it's not in your PATH.
 
 > [!IMPORTANT]
-> Minimum `scout` version is `0.2.0`.
+> You can install `scout-seeker` (v0.2.11 min) with Cargo:
+>
+> ```sh
+> cargo install scout-seeker
+> ```
+>
+> Binary `scout-seeker` is a Rust CLI tool built to list files, you can find the source code [here](https://github.com/ewilan-riviere/scout-seeker).
 
 ```php
-$list = FileList::make('/path/to/scan')->withScout()->run();
+$list = FileList::make('/path/to/scan')->withScoutSeeker()->run();
 ```
 
 ## Testing

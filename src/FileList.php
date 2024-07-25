@@ -16,7 +16,7 @@ class FileList
     protected function __construct(
         protected string $pathToScan,
         protected ?string $jsonPath = null,
-        protected bool $throwOnError = false,
+        protected bool $safeOnError = false,
         protected int|false $limit = false,
         protected bool $recursive = true,
         protected bool $skipHidden = true,
@@ -65,11 +65,11 @@ class FileList
     }
 
     /**
-     * Throw errors if any, default is `false`.
+     * Safe execution if errors, default will throw an exception.
      */
-    public function throwOnError(): self
+    public function safeOnError(): self
     {
-        $this->throwOnError = true;
+        $this->safeOnError = true;
 
         return $this;
     }
@@ -177,6 +177,17 @@ class FileList
      *
      * Alternative to PHP native scan, override another command.
      */
+    public function withScoutSeeker(?string $binaryPath = null): self
+    {
+        $this->useNative = false;
+        $this->command = FileListCommandScout::create([$this->pathToScan, '--print'], $binaryPath);
+
+        return $this;
+    }
+
+    /**
+     * @deprecated Use `withScoutSeeker` instead.
+     */
     public function withScout(?string $binaryPath = null): self
     {
         $this->useNative = false;
@@ -202,7 +213,7 @@ class FileList
     {
         if (! file_exists($this->pathToScan)) {
             $error = "The path `{$this->pathToScan}` does not exist.";
-            if ($this->throwOnError) {
+            if (! $this->safeOnError) {
                 throw new \Exception("FileList: {$error}");
             }
 
@@ -322,8 +333,8 @@ class FileList
                 $this->command->noMemoryLimit();
             }
 
-            if ($this->throwOnError) {
-                $this->command->throwOnError();
+            if ($this->safeOnError) {
+                $this->command->safeOnError();
             }
 
             $this->command->run();

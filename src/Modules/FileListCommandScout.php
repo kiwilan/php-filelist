@@ -8,7 +8,7 @@ class FileListCommandScout extends FileListCommand
 {
     public static function create(array $arguments, ?string $binaryPath = null): self
     {
-        $self = new self($binaryPath ?: 'scout');
+        $self = new self($binaryPath ?: 'scout-seeker');
         $self->arguments = $arguments;
 
         return $self;
@@ -25,7 +25,7 @@ class FileListCommandScout extends FileListCommand
     {
         $files = $this->outputArray;
 
-        return $files;
+        return $files ?? [];
     }
 
     private function parseJsonOutput(): array

@@ -46,13 +46,15 @@ it('can save as json', function () {
 });
 
 it('can handle errors', function () {
-    $list = FileList::make('non-existent-path')->run();
+    $list = FileList::make('non-existent-path')
+        ->safeOnError()
+        ->run();
 
     expect($list->getErrors())->toBeArray();
     expect($list->getErrors())->toHaveCount(1);
     expect($list->getErrors()[0])->toBe('The path `non-existent-path` does not exist.');
 
-    expect(fn () => FileList::make('non-existent-path')->throwOnError()->run())->toThrow(Exception::class);
+    expect(fn () => FileList::make('non-existent-path')->run())->toThrow(Exception::class);
 });
 
 it('can limit files', function () {
