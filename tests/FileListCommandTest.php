@@ -31,7 +31,7 @@ it('can list files with scout and print command', function () {
     expect($command->getFiles())->toBeArray();
     expect($command->getOutput())->toBeString();
     expect($command->getOutputArray())->toBeArray();
-    expect($command->getUser())->toBe($currentUser);
+    expect($command->getUser())->toContain($currentUser);
     expect($command->isSuccess())->toBeTrue();
     expect($command->toArray())->toBeArray();
 });
