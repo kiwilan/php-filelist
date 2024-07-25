@@ -108,7 +108,7 @@ $list = FileList::make('/path/to/scan')->withFind()->run();
 The `scout-seeker` binary is used to list files in a directory, you can add path of binary as parameter of `withScoutSeeker()` method if it's not in your PATH.
 
 > [!IMPORTANT]
-> You can install `scout-seeker` (v0.2.11 min) with Cargo:
+> You can install `scout-seeker` (v0.2.11 min) with [Cargo](https://www.rust-lang.org/) (Rust package manager):
 >
 > ```sh
 > cargo install scout-seeker
