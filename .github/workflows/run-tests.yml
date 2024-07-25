@@ -32,13 +32,8 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Bash commands
-        if: runner.os == 'Linux'
-        run: |
-          git clone https://github.com/ewilan-riviere/scout.git
-          cd scout
-          cargo build --release
-          cp target/release/scout /usr/local/bin
+      - name: Install scout-seeker
+        run: cargo install scout-seeker
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

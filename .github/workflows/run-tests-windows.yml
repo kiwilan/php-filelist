@@ -26,6 +26,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install scout-seeker
+        run: cargo install scout-seeker
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
