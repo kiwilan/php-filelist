@@ -14,7 +14,7 @@ it('can list files with scout', function () {
         ->withScoutSeeker()
         ->run()
     )->toThrow(Exception::class);
-})->skip(PHP_OS_FAMILY === 'Windows');
+});
 
 it('can list files with scout and print command', function () {
     $list = FileList::make(PATH_TO_SCAN)
@@ -34,7 +34,7 @@ it('can list files with scout and print command', function () {
     expect($command->getUser())->toBe($currentUser);
     expect($command->isSuccess())->toBeTrue();
     expect($command->toArray())->toBeArray();
-})->skip(PHP_OS_FAMILY === 'Windows');
+});
 
 it('can list files with scout with path', function () {
     $which = exec('which scout-seeker');
@@ -44,7 +44,7 @@ it('can list files with scout with path', function () {
 
     expect($list->getFiles())->toBeArray();
     expect($list->getFiles())->toHaveCount(7);
-})->skip(PHP_OS_FAMILY === 'Windows');
+});
 
 it('can list files with find', function () {
     $list = FileList::make(PATH_TO_SCAN)
@@ -54,7 +54,7 @@ it('can list files with find', function () {
 
     expect($list->getFiles())->toBeArray();
     expect($list->getFiles())->toHaveCount(7);
-})->skip(PHP_OS_FAMILY === 'Windows');
+});
 
 it('can throw error if command not found', function () {
     expect(fn () => FileList::make(PATH_TO_SCAN)
