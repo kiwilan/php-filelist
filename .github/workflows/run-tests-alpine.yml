@@ -8,14 +8,35 @@ on:
     branches:
       - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    services:
-      docker:
-        image: php:8.2-alpine
-        options: --entrypoint ""
+#     services:
+#       docker:
+#         image: php:8.2-alpine
+#         options: --entrypoint ""
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Set up PHP
+#         run: |
+#           docker run --rm -v ${{ github.workspace }}:/app -w /app php:8.2-alpine php -v
+
+#       - name: Install dependencies
+#         run: |
+#           docker run --rm -v ${{ github.workspace }}:/app -w /app php:8.2-alpine composer install
+
+#       - name: Run tests
+#         run: |
+#           docker run --rm -v ${{ github.workspace }}:/app -w /app php:8.2-alpine vendor/bin/pest
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: php:8.2-fpm-alpine
 
     steps:
       - name: Checkout code
@@ -23,12 +44,12 @@ jobs:
 
       - name: Set up PHP
         run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app php:8.2-alpine php -v
+          php -v
 
       - name: Install dependencies
         run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app php:8.2-alpine composer install
+          composer install
 
       - name: Run tests
         run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app php:8.2-alpine vendor/bin/pest
+          vendor/bin/pest
