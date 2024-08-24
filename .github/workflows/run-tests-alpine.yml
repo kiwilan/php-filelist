@@ -36,9 +36,9 @@ jobs:
       - name: Install dependencies
         run: |
           curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-          composer install
+          cd php-filelist && composer install
 
       - name: Execute tests
         run: |
           ls
-          vendor/bin/pest --ci
+          cd php-filelist && vendor/bin/pest --ci
