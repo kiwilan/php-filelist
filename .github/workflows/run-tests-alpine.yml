@@ -44,7 +44,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
           composer install
 
       - name: Run tests
