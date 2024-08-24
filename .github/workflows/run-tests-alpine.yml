@@ -35,4 +35,6 @@ jobs:
           composer install
 
       - name: Execute tests
-        run: vendor/bin/pest --ci
+        run: |
+          pwd
+          vendor/bin/pest --ci
