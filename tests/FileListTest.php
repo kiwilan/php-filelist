@@ -3,6 +3,8 @@
 use Kiwilan\FileList\FileList;
 
 it('can list files', function () {
+    $GLOBALS['GLOB_BRACE'] = null;
+
     $list = FileList::make(PATH_TO_SCAN)->run();
 
     expect($list->getFiles())->toBeArray();

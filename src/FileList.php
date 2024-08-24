@@ -352,7 +352,20 @@ class FileList
      */
     private function native(string $path, array &$results = []): array
     {
-        $files = glob($path.'/{,.}*', GLOB_BRACE);
+        if (defined('GLOB_BRACEA')) {
+            $files = glob($path.'/{,.}*', GLOB_BRACE);
+            if (! $files) {
+                $files = [];
+            }
+        } else {
+            $rii = $this->recursive ? new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) : new \DirectoryIterator($path);
+            $files = [];
+
+            /** @var \SplFileInfo $file */
+            foreach ($rii as $file) {
+                $files[] = $file->getPathname();
+            }
+        }
 
         foreach ($files as $file) {
             $filename = explode('/', $file);
