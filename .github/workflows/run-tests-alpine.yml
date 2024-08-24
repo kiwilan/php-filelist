@@ -18,6 +18,7 @@ jobs:
         run: |
           apk add git
           git clone https://github.com/kiwilan/php-filelist.git
+          cd php-filelist
           ls
 
       - name: Install Rust
