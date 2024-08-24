@@ -16,12 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         run: |
-          apk add wget
-          wget https://github.com/kiwilan/php-filelist/archive/refs/heads/main.zip
-          unzip main.zip
-          mv php-filelist-main/* .
-          rm -rf php-filelist-main
-          rm main.zip
+          apk add git
+          git clone https://github.com/kiwilan/php-filelist.git
           ls
 
       - name: Install Rust
