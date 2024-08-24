@@ -15,7 +15,14 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        run: |
+          apk add wget
+          wget https://github.com/kiwilan/php-filelist/archive/refs/heads/main.zip
+          unzip main.zip
+          mv php-filelist-main/* .
+          rm -rf php-filelist-main
+          rm main.zip
+          ls
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
