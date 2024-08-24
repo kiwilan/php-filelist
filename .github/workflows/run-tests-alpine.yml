@@ -36,5 +36,5 @@ jobs:
 
       - name: Execute tests
         run: |
-          pwd
+          ls
           vendor/bin/pest --ci
