@@ -353,11 +353,13 @@ class FileList
     private function native(string $path, array &$results = []): array
     {
         if (defined('GLOB_BRACE')) {
+            dump('GLOB_BRACE');
             $files = glob($path.'/{,.}*', GLOB_BRACE);
             if (! $files) {
                 $files = [];
             }
         } else {
+            dump('GLOB_BRACE not defined');
             $rii = $this->recursive ? new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) : new \DirectoryIterator($path);
             $files = [];
 
