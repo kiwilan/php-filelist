@@ -18,8 +18,6 @@ jobs:
         run: |
           apk add git
           git clone https://github.com/kiwilan/php-filelist.git
-          cd php-filelist
-          ls
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
@@ -40,5 +38,4 @@ jobs:
 
       - name: Execute tests
         run: |
-          ls
           cd php-filelist && vendor/bin/pest --ci
