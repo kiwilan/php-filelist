@@ -352,7 +352,7 @@ class FileList
      */
     private function native(string $path, array &$results = []): array
     {
-        if (defined('GLOB_BRACEA')) {
+        if (defined('GLOB_BRACE')) {
             $files = glob($path.'/{,.}*', GLOB_BRACE);
             if (! $files) {
                 $files = [];
