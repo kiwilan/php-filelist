@@ -2,6 +2,10 @@
 
 All notable changes to `php-filelist` will be documented in this file.
 
+## v0.1.01 - 2024-08-24
+
+Add alternative to `glob` for OS like Alpine Linux
+
 ## v0.1.0 - 2024-07-25
 
 **BREAKING CHANGES**
