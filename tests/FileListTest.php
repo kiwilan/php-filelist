@@ -7,7 +7,7 @@ it('can list files', function () {
 
     expect($list->getFiles())->toBeArray();
     expect($list->getFiles())->not->toBeEmpty();
-    expect($list->getFiles())->toHaveCount(7);
+    expect($list->getFiles())->toHaveCount(8);
 
     expect($list->getErrors())->toBeNull();
 
@@ -15,7 +15,7 @@ it('can list files', function () {
     expect($list->getTimeElapsed())->toBeLessThanOrEqual(1);
 
     expect($list->getTotal())->toBeInt();
-    expect($list->getTotal())->toBe(7);
+    expect($list->getTotal())->toBe(8);
 
     expect($list->isSuccess())->toBeTrue();
 });
@@ -26,7 +26,7 @@ it('can show hidden files', function () {
         ->skipFilenames(['.DS_Store'])
         ->run();
 
-    expect($list->getFiles())->toHaveCount(8);
+    expect($list->getFiles())->toHaveCount(9);
 });
 
 it('can save as json', function () {
@@ -42,7 +42,7 @@ it('can save as json', function () {
 
     $files = json_decode($contents, true);
     expect($files)->toBeArray();
-    expect($files)->toHaveCount(7);
+    expect($files)->toHaveCount(8);
 });
 
 it('can handle errors', function () {
@@ -70,7 +70,7 @@ it('can skip extensions', function () {
         ->skipExtensions(['mkv', 'jpg'])
         ->run();
 
-    expect($list->getFiles())->toHaveCount(5);
+    expect($list->getFiles())->toHaveCount(6);
 });
 
 it('can get only extensions', function () {
@@ -94,12 +94,22 @@ it('can disable max execution time', function () {
         ->noMemoryLimit()
         ->run();
 
-    expect($list->getFiles())->toHaveCount(7);
+    expect($list->getFiles())->toHaveCount(8);
 });
 
 it('can list as SplFileInfo', function () {
     $list = FileList::make(PATH_TO_SCAN)->run();
 
-    expect($list->getSplFiles())->toHaveCount(7);
+    expect($list->getSplFiles())->toHaveCount(8);
     expect($list->getSplFiles()[0])->toBeInstanceOf(\SplFileInfo::class);
+});
+
+it('can list with specific characters', function () {
+    $list = FileList::make(PATH_TO_SCAN)->run();
+    ray($list)->blue();
+    $paths = $list->getFiles();
+    $first = $paths[0] ?? null;
+
+    expect($first)->toBeString();
+    expect($first)->toMatch('/Ai.no.Kusabi.1992.{tmdb-67325}/');
 });

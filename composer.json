@@ -1,7 +1,7 @@
 {
     "name": "kiwilan/php-filelist",
     "description": "PHP package for recursive file listing, exportable in JSON format.",
-    "version": "0.1.01",
+    "version": "0.1.02",
     "keywords": [
         "kiwilan",
         "php",

@@ -8,5 +8,5 @@ it('can list files', function () {
     }
     $list = FileList::make(PATH_SYMBOLIC)->run();
 
-    expect($list->getFiles())->toHaveCount(7);
+    expect($list->getFiles())->toHaveCount(8);
 })->skip('Skip symbolic test');

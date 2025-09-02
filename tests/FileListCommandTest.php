@@ -8,7 +8,7 @@ it('can list files with scout', function () {
         ->run();
 
     expect($list->getFiles())->toBeArray();
-    expect($list->getFiles())->toHaveCount(7);
+    expect($list->getFiles())->toHaveCount(8);
 
     expect(fn () => FileList::make('non-existent-path')
         ->withScoutSeeker()
@@ -43,7 +43,7 @@ it('can list files with scout with path', function () {
         ->run();
 
     expect($list->getFiles())->toBeArray();
-    expect($list->getFiles())->toHaveCount(7);
+    expect($list->getFiles())->toHaveCount(8);
 });
 
 it('can list files with find', function () {
@@ -53,7 +53,7 @@ it('can list files with find', function () {
         ->run();
 
     expect($list->getFiles())->toBeArray();
-    expect($list->getFiles())->toHaveCount(7);
+    expect($list->getFiles())->toHaveCount(8);
 });
 
 it('can throw error if command not found', function () {

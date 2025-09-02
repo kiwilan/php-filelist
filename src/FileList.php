@@ -345,39 +345,31 @@ class FileList
     }
 
     /**
-     * Parse files with glob.
+     * Parse files with DirectoryIterator (robust, no glob quirks).
      *
      * @param  string  $path  The path to scan.
      * @param  string[]  $results  The results.
      */
     private function native(string $path, array &$results = []): array
     {
-        if (defined('GLOB_BRACE')) {
-            $files = glob($path.'/{,.}*', GLOB_BRACE);
-            if (! $files) {
-                $files = [];
-            }
-        } else {
-            $rii = $this->recursive ? new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) : new \DirectoryIterator($path);
-            $files = [];
+        $rii = $this->recursive
+            ? new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path))
+            : new \DirectoryIterator($path);
 
-            /** @var \SplFileInfo $file */
-            foreach ($rii as $file) {
-                $files[] = $file->getPathname();
-            }
-        }
-
-        foreach ($files as $file) {
-            $filename = explode('/', $file);
-            $filename = end($filename);
+        /** @var \SplFileInfo $file */
+        foreach ($rii as $file) {
+            $filename = $file->getFilename();
             if ($filename === '.' || $filename === '..') {
                 continue;
             }
 
-            if ($this->recursive && is_dir($file)) {
-                $this->native($file, $results);
-            } elseif (! is_dir($file)) {
-                $results[] = $file;
+            if ($file->isDir() && $this->recursive) {
+                // rien à faire : RecursiveIteratorIterator gère déjà la descente
+                continue;
+            }
+
+            if ($file->isFile()) {
+                $results[] = $file->getPathname();
             }
         }
 
